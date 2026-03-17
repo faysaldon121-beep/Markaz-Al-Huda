@@ -1,13 +1,31 @@
 import { Shield, Lock, Eye, FileText, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PrivacyPolicy() {
   return (
     <main className="min-h-screen bg-stone-50 py-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-emerald-700 font-medium mb-12 hover:gap-3 transition-all">
-          <ChevronLeft className="w-5 h-5" /> Back to Home
-        </Link>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+          <Link href="/" className="inline-flex items-center gap-2 text-emerald-700 font-medium hover:gap-3 transition-all">
+            <ChevronLeft className="w-5 h-5" /> Back to Home
+          </Link>
+          <Link href="/" className="flex items-center gap-3">
+            <div className="relative w-10 h-10">
+              <Image 
+                src="/logo.png" 
+                alt="Markaz Al Huda Logo" 
+                fill 
+                className="object-contain"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-serif text-lg font-bold tracking-tight text-stone-900 leading-none">Markaz Al Huda</span>
+              <span className="text-[8px] uppercase tracking-[0.2em] text-emerald-700 font-bold mt-0.5">Islamic Institute</span>
+            </div>
+          </Link>
+        </div>
 
         <div className="bg-white rounded-[2.5rem] p-8 md:p-16 shadow-xl shadow-stone-200/50 border border-stone-100">
           <div className="flex items-center gap-4 mb-8">

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { BookOpen, GraduationCap, Heart, MapPin, Phone, Mail, Clock, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
+import Logo from '@/components/Logo';
 
 const programs = [
   {
@@ -41,16 +42,11 @@ export default function Home() {
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
-            <div className="flex items-center gap-3">
-              <div className="relative w-12 h-12 flex items-center justify-center">
-                <div className="absolute inset-0 bg-[#C5A059] rounded-xl rotate-6 opacity-20 group-hover:rotate-12 transition-transform"></div>
-                <div className="relative w-10 h-10 bg-[#1B365D] rounded-lg flex items-center justify-center text-[#C5A059] shadow-lg">
-                  <BookOpen className="w-6 h-6" />
-                </div>
-              </div>
+            <div className="flex items-center gap-2 group cursor-pointer">
+              <Logo className="w-14 h-14" />
               <div className="flex flex-col">
-                <span className="font-serif text-xl font-bold tracking-tight text-[#1B365D] leading-none">MARKAZ AL HUDA</span>
-                <span className="text-[10px] font-bold tracking-[0.2em] text-[#C5A059] uppercase mt-1">Islamic Institute</span>
+                <span className="font-serif text-xl font-bold tracking-tight text-slate-800 leading-none">Markaz ul Huda</span>
+                <span className="text-[10px] font-medium tracking-[0.1em] text-green-600 uppercase mt-1">we muslimate</span>
               </div>
             </div>
             <div className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
@@ -60,7 +56,7 @@ export default function Home() {
               <a href="#contact" className="hover:text-emerald-700 transition-colors">Contact</a>
               <button 
                 onClick={() => setIsDonationModalOpen(true)}
-                className="bg-[#1B365D] text-white px-6 py-2.5 rounded-full hover:bg-[#152a4a] transition-all shadow-md hover:shadow-lg border border-[#C5A059]/30"
+                className="bg-green-600 text-white px-6 py-2.5 rounded-full hover:bg-green-700 transition-all shadow-md hover:shadow-lg border border-green-500/20"
               >
                 Donate Now
               </button>
@@ -78,18 +74,18 @@ export default function Home() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-block px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-                Welcome to Markaz Al Huda
+              <span className="inline-block px-4 py-1.5 bg-green-50 text-green-700 rounded-full text-xs font-bold uppercase tracking-widest mb-6 border border-green-100">
+                Welcome to Markaz ul Huda
               </span>
-              <h1 className="font-serif text-5xl lg:text-7xl font-bold text-[#1B365D] leading-[1.1] mb-6">
-                Nurturing Souls with the <span className="text-[#C5A059]">Light of Quran</span>
+              <h1 className="font-serif text-5xl lg:text-7xl font-bold text-slate-800 leading-[1.1] mb-6">
+                Nurturing Souls with the <span className="text-green-600">Light of Quran</span>
               </h1>
-              <p className="text-lg text-stone-600 mb-8 max-w-lg leading-relaxed">
+              <p className="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
                 Dedicated to excellence in Islamic education. We provide a spiritual environment for Hifz, Tajweed, and deep Quranic understanding in Kot Abdullah Qasoor.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="bg-[#1B365D] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#152a4a] transition-all flex items-center gap-2 shadow-xl shadow-[#1B365D]/20">
-                  Explore Programs <ChevronRight className="w-5 h-5 text-[#C5A059]" />
+                <button className="bg-green-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-green-700 transition-all flex items-center gap-2 shadow-xl shadow-green-600/20">
+                  Explore Programs <ChevronRight className="w-5 h-5 text-green-200" />
                 </button>
                 <button className="bg-white text-stone-900 border border-stone-200 px-8 py-4 rounded-xl font-bold hover:bg-stone-50 transition-all">
                   Our Mission
@@ -295,33 +291,33 @@ export default function Home() {
               </button>
               
               <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <Heart className="w-8 h-8 fill-current" />
                 </div>
-                <h3 className="font-serif text-3xl font-bold text-stone-900">Support Our Mission</h3>
-                <p className="text-stone-600 mt-2">Invest in the future of our students. Donate now to Markaz Al Huda.</p>
+                <h3 className="font-serif text-3xl font-bold text-slate-900">Support Our Mission</h3>
+                <p className="text-slate-600 mt-2">Invest in the future of our students. Donate now to Markaz ul Huda.</p>
               </div>
 
-              <div className="bg-stone-50 rounded-2xl p-6 border border-stone-100 space-y-4">
+              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 space-y-4">
                 <div>
-                  <p className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Bank Name</p>
-                  <p className="font-medium text-stone-900">Markaz Al Huda Kot Abdullah, Qasoor</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Bank Name</p>
+                  <p className="font-medium text-slate-900">Markaz ul Huda Kot Abdullah, Qasoor</p>
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Account Title</p>
-                  <p className="font-medium text-stone-900">ALLAH Mafi</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Account Title</p>
+                  <p className="font-medium text-slate-900">ALLAH Mafi</p>
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">IBAN</p>
-                  <p className="font-mono text-emerald-700 font-bold break-all">PK71MUCB1651244871012691</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">IBAN</p>
+                  <p className="font-mono text-green-700 font-bold break-all">PK71MUCB1651244871012691</p>
                 </div>
               </div>
 
               <div className="mt-8 text-center">
-                <p className="text-sm text-stone-500 mb-6">Contact us for more details or confirmation of your donation.</p>
+                <p className="text-sm text-slate-500 mb-6">Contact us for more details or confirmation of your donation.</p>
                 <button 
                   onClick={() => setIsDonationModalOpen(false)}
-                  className="w-full bg-emerald-700 text-white py-4 rounded-xl font-bold hover:bg-emerald-800 transition-all"
+                  className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition-all"
                 >
                   Close
                 </button>
@@ -335,13 +331,11 @@ export default function Home() {
       <footer className="bg-stone-50 border-t border-stone-200 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#1B365D] rounded-lg flex items-center justify-center text-[#C5A059] font-serif text-lg font-bold">
-                <BookOpen className="w-5 h-5" />
-              </div>
+            <div className="flex items-center gap-2">
+              <Logo className="w-10 h-10" />
               <div className="flex flex-col">
-                <span className="font-serif text-lg font-bold tracking-tight text-[#1B365D] leading-none">MARKAZ AL HUDA</span>
-                <span className="text-[8px] font-bold tracking-[0.1em] text-[#C5A059] uppercase">Islamic Institute</span>
+                <span className="font-serif text-lg font-bold tracking-tight text-slate-800 leading-none">Markaz ul Huda</span>
+                <span className="text-[8px] font-medium tracking-[0.1em] text-green-600 uppercase">we muslimate</span>
               </div>
             </div>
             <div className="flex gap-8 text-sm text-stone-500">
