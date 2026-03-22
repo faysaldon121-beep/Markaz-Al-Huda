@@ -5,8 +5,27 @@ import Logo from '@/components/Logo';
 import { hadithBooks } from '@/lib/hadiths-data';
 
 export const metadata: Metadata = {
-  title: 'Hadith Collections — The 9 Books',
-  description: 'Browse authentic hadith collections from the 9 major books including Sahih Bukhari, Sahih Muslim, and more at Markaz ul Huda.',
+  title: "Hadith Collections - The 9 Books",
+  description:
+    "Browse authentic Hadith collections at Markaz Al Huda. Explore the sayings and traditions of Prophet Muhammad ﷺ with translations and explanations.",
+  keywords: [
+    "hadith collection",
+    "sahih hadith",
+    "Prophet Muhammad sayings",
+    "Islamic traditions",
+    "hadith in Urdu",
+    "hadith in English",
+    "Markaz Al Huda hadith",
+  ],
+  alternates: {
+    canonical: "https://markazalhuda.vercel.app/hadith",
+  },
+  openGraph: {
+    title: "Hadith Collection | Markaz Al Huda",
+    description:
+      "Browse authentic Hadith collections with translations and explanations.",
+    url: "https://markazalhuda.vercel.app/hadith",
+  },
 };
 
 export default function HadithsPage() {
