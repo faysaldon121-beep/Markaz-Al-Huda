@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     default: 'Markaz ul Huda | Quran School Kot Abdullah Qasoor',
     template: '%s | Markaz ul Huda',
   },
+   icons: {
+    icon: '/logo.jpeg'
+   },
   description: 'Markaz ul Huda offers Hifz-e-Quran, Tajweed, Manzil, and Maariful Quran programs in Kot Abdullah, Qasoor, Pakistan. Enroll now for online and in-person Islamic education.',
   keywords: ['Quran school Pakistan', 'Hifz Quran Qasoor', 'Islamic school Kot Abdullah', 'Tajweed classes', 'Markaz ul Huda', 'online Quran courses', 'Maariful Quran', 'learn Quran Pakistan'],
   authors: [{ name: 'Markaz ul Huda' }],
