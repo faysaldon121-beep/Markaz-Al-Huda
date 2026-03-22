@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     "Markaz Al Huda hadith",
   ],
   alternates: {
-    canonical: "https://markazalhuda.vercel.app/hadith",
+    canonical: "https://markazalhuda.vercel.app/hadiths",
   },
   openGraph: {
     title: "Hadith Collection | Markaz Al Huda",
     description:
       "Browse authentic Hadith collections with translations and explanations.",
-    url: "https://markazalhuda.vercel.app/hadith",
+    url: "https://markazalhuda.vercel.app/hadiths",
   },
 };
 
