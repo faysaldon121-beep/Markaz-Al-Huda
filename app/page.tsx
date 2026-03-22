@@ -5,7 +5,6 @@ import { BookOpen, GraduationCap, Heart, MapPin, Phone, Mail, Clock, ChevronRigh
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Logo from '@/components/Logo';
-import Head from "next/head";
 
 const programs = [
   {
@@ -39,7 +38,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <Head><meta name="google-site-verification" content="Oxz_vV17FHU_g0ColbVp2jZ2ANwgg1udZlvwTRMrqgI" /></Head>
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,6 +53,8 @@ export default function Home() {
               <a href="#about" className="hover:text-emerald-700 transition-colors">About</a>
               <a href="#programs" className="hover:text-emerald-700 transition-colors">Programs</a>
               <a href="/admissions" className="hover:text-emerald-700 transition-colors">Admissions</a>
+              <a href="/courses" className="hover:text-emerald-700 transition-colors">Courses</a>
+              <a href="/hadiths" className="hover:text-emerald-700 transition-colors">Hadiths</a>
               <a href="#contact" className="hover:text-emerald-700 transition-colors">Contact</a>
               <button 
                 onClick={() => setIsDonationModalOpen(true)}
@@ -343,6 +343,8 @@ export default function Home() {
             <div className="flex gap-8 text-sm text-stone-500">
               <a href="/privacy-policy" className="hover:text-emerald-700 transition-colors">Privacy Policy</a>
               <a href="/admissions" className="hover:text-emerald-700 transition-colors">Admissions</a>
+              <a href="/courses" className="hover:text-emerald-700 transition-colors">Courses</a>
+              <a href="/hadiths" className="hover:text-emerald-700 transition-colors">Hadiths</a>
               <a href="#contact" className="hover:text-emerald-700 transition-colors">Contact</a>
             </div>
             <p className="text-sm text-stone-400">
