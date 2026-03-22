@@ -5,6 +5,7 @@ import { BookOpen, GraduationCap, Heart, MapPin, Phone, Mail, Clock, ChevronRigh
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Logo from '@/components/Logo';
+import Head from "next/head";
 
 const programs = [
   {
@@ -38,6 +39,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
+      <Head><meta name="google-site-verification" content="Oxz_vV17FHU_g0ColbVp2jZ2ANwgg1udZlvwTRMrqgI" /></Head>
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
