@@ -1,5 +1,17 @@
+import { Inter } from 'next/font/google';
+import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
+
 export const metadata = {
-  title: 'Your Title',
-  description: 'Your description',
-  verification: { google: 'Oxz_vV17FHU_g0ColbVp2jZ2ANwgg1udZlvwTRMrqgI' }
+  title: 'Markaz Al Huda',
+  description: 'A community-focused application',
 };
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+}
