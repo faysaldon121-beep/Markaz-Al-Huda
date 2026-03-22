@@ -4,11 +4,11 @@ import { getServerSideSitemap, Sitemap } from 'next-sitemap';
 
 const SEO = {
   title: 'Markaz Al Huda',
-  description: 'Your description goes here',
+  description: 'An Islamic school Dedicated to excellence in Islamic education. We provide a spiritual environment for Hifz, Tajweed, and deep Quranic understanding in Kot Abdullah Qasoor.',
   openGraph: {
     title: 'Markaz Al Huda',
-    description: 'Your description goes here',
-    url: 'https://markazalhuda.com',
+    description: 'Dedicated to excellence in Islamic education. We provide a spiritual environment for Hifz, Tajweed, and deep Quranic understanding in Kot Abdullah Qasoor.',
+    url: 'https://markazalhuda.vercel.app',
     type: 'website',
     images: [
       { url: 'https://markazalhuda.com/image.jpg', alt: 'Image Alt' },
