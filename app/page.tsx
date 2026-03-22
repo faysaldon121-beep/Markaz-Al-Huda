@@ -6,62 +6,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Logo from '@/components/Logo';
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://markazalhuda.vercel.app"),
-  title: {
-    default: "Markaz Al Huda | Islamic Center Pakistan",
-    template: "%s | Markaz Al Huda",
-  },
-  description:
-    "Markaz Al Huda is a dedicated Islamic center in Pakistan offering Quran classes, Hifz programs, Islamic education, and community services.",
-  keywords: [
-    "Markaz Al Huda",
-    "Islamic center Pakistan",
-    "Quran classes",
-    "Hifz program",
-    "Islamic education",
-    "mosque Pakistan",
-    "Arabic classes",
-    "Muslim community Pakistan",
-  ],
-  authors: [{ name: "Markaz Al Huda" }],
-  creator: "Qari Abdur Rahman Al Afin",
-  publisher: "Markaz Al Huda",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: "Markaz Al Huda",
-    url: "https://markazalhuda.vercel.app",
-    title: "Markaz Al Huda | Islamic Center Pakistan",
-    description:
-      "A dedicated Islamic center offering Quran classes, Hifz programs, and community services in Pakistan.",
-    images: [
-      {
-        url: "/hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Markaz Al Huda Islamic Center",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Markaz Al Huda | Islamic Center Pakistan",
-    description:
-      "A dedicated Islamic center offering Quran classes, Hifz programs, and community services in Pakistan.",
-    images: ["/hero.png"],
-  },
-};
 const programs = [
   {
     title: "Hifz-e-Quran",
