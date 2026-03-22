@@ -14,7 +14,7 @@ export type Course = {
   zoomLink?: string;
 };
 
-export const courses: Course[] = [
+export const COURSES_DATA: Course[] = [
   {
     slug: 'hifz-e-quran',
     title: 'Hifz-e-Quran Complete Program',
