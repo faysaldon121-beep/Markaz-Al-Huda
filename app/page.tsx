@@ -6,6 +6,29 @@ import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Logo from '@/components/Logo';
 
+
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Markaz Al Huda - Islamic Center & Mosque in Pakistan',
+  description: 'Join Markaz Al Huda, a vibrant Islamic center in Pakistan offering Quran classes, Hifz programs, Nikah services, and community events. Contact: +92 316 8724692',
+  keywords: ['Islamic center', 'Quran classes', 'Hifz program', 'mosque Pakistan', 'Markaz Al Huda'],
+  openGraph: {
+    title: 'Markaz Al Huda - Islamic Center & Mosque',
+    description: 'A vibrant Islamic community hub for Quran learning and worship.',
+    url: 'https://markazalhuda.vercel.app/',
+    siteName: 'Markaz Al Huda',
+    images: ['/hero.png'],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Markaz Al Huda - Islamic Center & Mosque',
+    description: 'A vibrant Islamic community hub for Quran learning and worship.',
+    images: ['/hero.png'],
+  },
+};
+
 const programs = [
   {
     title: "Hifz-e-Quran",
