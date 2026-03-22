@@ -5,8 +5,8 @@ export const SEO_CONFIG = {
   description: 'Islamic school offering Hifz, Tajweed, Manzil, and Maariful Quran programs.',
   locale: 'en_PK',
 
-  phone: '+92-344-1722419',
-  email: 'info@markazulhuda.pk',
+  phone: '+92-316-8724692',
+  email: 'xios.technologies.inc@gmail.com',
   address: 'Kot Abdullah, Qasoor, Punjab, Pakistan',
   
   defaultKeywords: [
@@ -16,16 +16,17 @@ export const SEO_CONFIG = {
     'Tajweed classes',
     'online Quran courses',
     'Maariful Quran',
+    "Markaz ul huda qasoor",
   ],
 
   ogImage: '/og-image.jpg',
   twitterHandle: '@markazulhuda',
 
   socialMedia: {
-    facebook: 'https://facebook.com/markazulhuda',
-    twitter: 'https://twitter.com/markazulhuda',
-    instagram: 'https://instagram.com/markazulhuda',
-    youtube: 'https://youtube.com/@markazulhuda',
+    facebook: 'https://facebook.com/a1a7in',
+    twitter: 'https://twitter.com/a1a7in',
+    instagram: 'https://instagram.com/afin.qari.official',
+    youtube: 'https://youtube.com/@a1a7in',
   },
 
   googleSiteVerification: 'Oxz_vV17FHU_g0ColbVp2jZ2ANwgg1udZlvwTRMrqgI',
