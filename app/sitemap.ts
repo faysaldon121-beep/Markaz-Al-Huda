@@ -1,25 +1,62 @@
-import { NextResponse } from 'next/server';
+import { MetadataRoute } from 'next';
+import { COURSES_DATA } from '@/lib/courses-data';
+import { HADITHS_DATA } from '@/lib/hadiths-data';
 
-export async function GET() {
-  const baseUrl = 'https://yourdomain.com'; // Replace with your domain
-  const routes = [
-    '/',
-    '/about',
-    '/contact',
-    '/blog',
-    // add more routes as needed
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://markazulhuda.vercel.app/';
+  const now = new Date();
+
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
+    {
+      url: baseUrl,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/admissions`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/courses`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/hadiths`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
   ];
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n` +
-                  `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap-image/1.1">\n` +
-                  routes.map(route => {
-                    return `  <url>\n` +
-                           `    <loc>${baseUrl}${route}</loc>\n` +
-                           `    <changefreq>weekly</changefreq>\n` +
-                           `    <priority>0.8</priority>\n` +
-                           `  </url>`;
-                  }).join('\n') +
-                  `</urlset>`;
+  // Dynamic course pages
+  const coursePages: MetadataRoute.Sitemap = (COURSES_DATA || []).map((course: any) => ({
+    url: `${baseUrl}/courses/${course.slug || course.id}`,
+    lastModified: course.updatedAt ? new Date(course.updatedAt) : now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
 
-  return NextResponse.json(sitemap, { status: 200 });
+  // Dynamic hadith pages (limited to 50)
+  const hadithPages: MetadataRoute.Sitemap = (HADITHS_DATA || [])
+    .slice(0, 50)
+    .map((hadith: any) => ({
+      url: `${baseUrl}/hadiths/${hadith.id}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
+
+  return [...staticPages, ...coursePages, ...hadithPages];
 }
