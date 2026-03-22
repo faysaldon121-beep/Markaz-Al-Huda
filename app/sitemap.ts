@@ -1,62 +1,48 @@
 import { MetadataRoute } from 'next';
-import { COURSES_DATA } from '@/lib/courses-data';
-import { HADITHS_DATA } from '@/lib/hadiths-data';
+
+// Your hadith books data (embedded directly)
+const hadithBooks = [
+  { slug: 'bukhari', count: 7277 },
+  { slug: 'muslim', count: 5362 },
+  { slug: 'abudawud', count: 4590 },
+  { slug: 'tirmidhi', count: 3891 },
+  { slug: 'nasai', count: 5662 },
+  { slug: 'ibnmajah', count: 4332 },
+  { slug: 'malik', count: 1594 },
+  { slug: 'ahmed', count: 3450 },
+  { slug: 'darimi', count: 3367 },
+];
+
+// Base URL (ensures no typos in sitemap before verification)
+const BASE_URL = 'https://markazalhuda.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://markazulhuda.vercel.app/';
   const now = new Date();
 
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/admissions`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/courses`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/hadiths`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
+  // 1. Static Pages
+  const staticPages = [
+    { url: BASE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE_URL}/admissions`, lastModified: now, changeFrequency: 'yearly', priority: 0.7 },
+    { url: `${BASE_URL}/courses`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE_URL}/hadiths`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE_URL}/privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },
   ];
 
-  // Dynamic course pages
-  const coursePages: MetadataRoute.Sitemap = (COURSES_DATA || []).map((course: any) => ({
-    url: `${baseUrl}/courses/${course.slug || course.id}`,
-    lastModified: course.updatedAt ? new Date(course.updatedAt) : now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
+  // 2. Hadith Book Pages (9 Index Pages)
+  const bookPages = hadithBooks.map(book => (
+    { url: `${BASE_URL}/hadiths/${book.slug}`, lastModified: now, priority: 0.7 }
+  ));
 
-  // Dynamic hadith pages (limited to 50)
-  const hadithPages: MetadataRoute.Sitemap = (HADITHS_DATA || [])
-    .slice(0, 50)
-    .map((hadith: any) => ({
-      url: `${baseUrl}/hadiths/${hadith.id}`,
+  // 3. All Hadith Pages (~39,525)
+  const hadithPages = hadithBooks.flatMap(book =>
+    Array.from({ length: book.count }, (_, index) => ({
+      url: `${BASE_URL}/hadiths/${book.slug}/${index + 1}`,
       lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }));
+      changeFrequency: 'yearly', // Best practice for rarely changed hadiths
+      priority: 0.5,             // Lower priority for deep linked pages
+    }))
+  );
 
-  return [...staticPages, ...coursePages, ...hadithPages];
+  // Combine all routes
+  return [...staticPages, ...bookPages, ...hadithPages] as MetadataRoute.Sitemap;
 }
