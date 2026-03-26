@@ -5,6 +5,7 @@ import { BookOpen, GraduationCap, Heart, MapPin, Phone, Mail, Clock, ChevronRigh
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Logo from '@/components/Logo';
+import seoData from '../data/seo-data.json';
 
 const programs = [
   {
@@ -35,7 +36,8 @@ const programs = [
 
 export default function Home() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
-
+  const faqTopics = seoData.keyword_categories.search_intent_and_long_tail.slice(0, 5);
+  
   return (
     <main className="min-h-screen">
       {/* Navigation */}
@@ -328,7 +330,20 @@ export default function Home() {
           </div>
         )}
       </AnimatePresence>
-
+ <section className="faq-section">
+      <h2>Frequently Asked Questions in Islamic Studies</h2>
+      {faqTopics.map((topic, index) => (
+        <article key={index} className="faq-item">
+          {/* Use the exact long-tail keyword as an H3 */}
+          <h3>{topic}?</h3> 
+          <p>
+            At Markaz Al Huda, we provide comprehensive answers and dedicated 
+            courses addressing {topic.toLowerCase()}. 
+            <a href="/contact"> Contact our instructors to learn more.</a>
+          </p>
+        </article>
+      ))}
+    </section>
       {/* Footer */}
       <footer className="bg-stone-50 border-t border-stone-200 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
