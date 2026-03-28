@@ -5,7 +5,7 @@ import { BookOpen, GraduationCap, Heart, MapPin, Phone, Mail, Clock, ChevronRigh
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Logo from '@/components/Logo';
-import seoData from '../data/keywords.json';
+import seoData from '@/lib/keywords.json';
 
 const programs = [
   {
