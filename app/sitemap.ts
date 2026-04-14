@@ -13,7 +13,7 @@ const hadithBooks = [
   { slug: 'darimi', count: 3367 },
 ];
 
-// Base URL (ensures no typos in sitemap before verification)
+// Base URL
 const BASE_URL = 'https://markazalhuda.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,21 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },
   ];
 
-  // 2. Hadith Book Pages (9 Index Pages)
-  const bookPages = hadithBooks.map(book => (
-    { url: `${BASE_URL}/hadiths/${book.slug}`, lastModified: now, priority: 0.7 }
-  ));
+  // 2. Hadith Book Pages (9 Index Pages only)
+  const bookPages = hadithBooks.map(book => ({
+    url: `${BASE_URL}/hadiths/${book.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
 
-  // 3. All Hadith Pages (~39,525)
-  const hadithPages = hadithBooks.flatMap(book =>
-    Array.from({ length: book.count }, (_, index) => ({
-      url: `${BASE_URL}/hadiths/${book.slug}/${index + 1}`,
-      lastModified: now,
-      changeFrequency: 'yearly', // Best practice for rarely changed hadiths
-      priority: 0.5,             // Lower priority for deep linked pages
-    }))
-  );
-
-  // Combine all routes
-  return [...staticPages, ...bookPages, ...hadithPages] as MetadataRoute.Sitemap;
+  // Combine only essential routes
+  return [...staticPages, ...bookPages] as MetadataRoute.Sitemap;
 }
