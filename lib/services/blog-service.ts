@@ -1,7 +1,8 @@
 // lib/services/blog-service.ts
 import connectDB from '@/lib/db/mongodb';
 import BlogPost, { IBlogPost } from '@/lib/db/models/BlogPost';
-import { Language } from '@/lib/utils/language-detection';
+//import { Language } from '@/lib/utils/language-detection';
+import { type Language } from '@/lib/i18n/languages';
 
 export interface BlogPostInput {
   slug: string;
