@@ -1,6 +1,4 @@
 // lib/utils/language-detection.ts
-import { headers } from 'next/headers';
-
 export const languages = {
   en: { name: 'English', flag: '🇺🇸', dir: 'ltr' },
   es: { name: 'Español', flag: '🇪🇸', dir: 'ltr' },
@@ -22,19 +20,6 @@ const countryToLanguage: Record<string, Language> = {
   RU: 'ru', BY: 'ru', KZ: 'ru',
 };
 
-// Detect language from IP geolocation
-export async function detectLanguageFromIP(): Promise<Language> {
-  try {
-    // Using Vercel's geolocation headers
-    const headersList = headers();
-    const country = headersList.get('x-vercel-ip-country') || 'US';
-    
-    return countryToLanguage[country] || 'en';
-  } catch (error) {
-    return 'en';
-  }
-}
-
 // Detect language from browser
 export function detectLanguageFromBrowser(acceptLanguage: string): Language {
   const browserLang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase();
@@ -51,18 +36,19 @@ export function detectLanguageFromBrowser(acceptLanguage: string): Language {
   return langMap[browserLang] || 'en';
 }
 
-// Get best language match
-export async function getBestLanguage(
-  preferredLang?: string
-): Promise<Language> {
+// Get best language match (simplified for build compatibility)
+export function getBestLanguage(preferredLang?: string): Language {
   if (preferredLang && preferredLang in languages) {
     return preferredLang as Language;
   }
-
-  // Try IP detection
-  const ipLang = await detectLanguageFromIP();
-  if (ipLang) return ipLang;
-
-  // Fallback to English
+  
   return 'en';
 }
+
+// Server-side language detection
+export function detectLanguageFromCountry(country?: string): Language {
+  if (!country) return 'en';
+  return countryToLanguage[country] || 'en';
+}
+
+
