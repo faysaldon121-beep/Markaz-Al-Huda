@@ -3,7 +3,8 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Language, languages } from '@/lib/utils/language-detection';
+import { languages, type Language } from '@/lib/i18n/languages'; // ✅ Changed
+import 'react-quill/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill'), { 
   ssr: false,
