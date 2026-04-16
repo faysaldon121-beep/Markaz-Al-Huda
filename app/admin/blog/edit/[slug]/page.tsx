@@ -1,11 +1,15 @@
-// app/admin/blog/edit/[slug]/page.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import BlogEditor from '@/components/admin/blog-editor';
 
-export default function EditBlogPage({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default function EditBlogPage({ params }: PageProps) {
+  const resolvedParams = use(params);
   const router = useRouter();
   const [post, setPost] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -16,7 +20,7 @@ export default function EditBlogPage({ params }: { params: { slug: string } }) {
 
   const fetchPost = async () => {
     try {
-      const res = await fetch(`/api/admin/blog/${params.slug}`);
+      const res = await fetch(`/api/admin/blog/${resolvedParams.slug}`);
       const data = await res.json();
       setPost(data);
     } catch (error) {
@@ -27,7 +31,7 @@ export default function EditBlogPage({ params }: { params: { slug: string } }) {
   };
 
   const handleSave = async (data: any) => {
-    const res = await fetch(`/api/admin/blog/${params.slug}`, {
+    const res = await fetch(`/api/admin/blog/${resolvedParams.slug}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -40,8 +44,21 @@ export default function EditBlogPage({ params }: { params: { slug: string } }) {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (!post) return <div>Post not found</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!post) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Post not found
+      </div>
+    );
+  }
 
   return (
     <div>
