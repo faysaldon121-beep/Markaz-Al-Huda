@@ -1,54 +1,32 @@
-// lib/utils/language-detection.ts
-export const languages = {
-  en: { name: 'English', flag: '🇺🇸', dir: 'ltr' },
-  es: { name: 'Español', flag: '🇪🇸', dir: 'ltr' },
-  de: { name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
-  ur: { name: 'اردو', flag: '🇵🇰', dir: 'rtl' },
-  hi: { name: 'हिन्दी', flag: '🇮🇳', dir: 'ltr' },
-  ru: { name: 'Русский', flag: '🇷🇺', dir: 'ltr' },
-} as const;
+// lib/utils/detect-language.ts
+import { headers } from 'next/headers';
+import { Language, defaultLanguage, languages } from '@/lib/i18n/languages';
 
-export type Language = keyof typeof languages;
-
-// Country to language mapping
 const countryToLanguage: Record<string, Language> = {
   US: 'en', GB: 'en', CA: 'en', AU: 'en', NZ: 'en',
-  ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es',
+  ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es', PE: 'es',
   DE: 'de', AT: 'de', CH: 'de',
   PK: 'ur', AF: 'ur',
   IN: 'hi',
-  RU: 'ru', BY: 'ru', KZ: 'ru',
+  RU: 'ru', BY: 'ru', KZ: 'ru', UA: 'ru',
 };
 
-// Detect language from browser
-export function detectLanguageFromBrowser(acceptLanguage: string): Language {
-  const browserLang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase();
-  
-  const langMap: Record<string, Language> = {
-    'en': 'en',
-    'es': 'es',
-    'de': 'de',
-    'ur': 'ur',
-    'hi': 'hi',
-    'ru': 'ru',
-  };
-  
-  return langMap[browserLang] || 'en';
+export async function detectLanguageFromIP(): Promise<Language> {
+  try {
+    const headersList = headers();
+    const country = headersList.get('x-vercel-ip-country') || 'US';
+    return countryToLanguage[country] || defaultLanguage;
+  } catch {
+    return defaultLanguage;
+  }
 }
 
-// Get best language match (simplified for build compatibility)
-export function getBestLanguage(preferredLang?: string): Language {
+export async function getBestLanguage(preferredLang?: string): Promise<Language> {
+  // Check if preferred language is valid
   if (preferredLang && preferredLang in languages) {
     return preferredLang as Language;
   }
   
-  return 'en';
+  // Fallback to IP detection
+  return await detectLanguageFromIP();
 }
-
-// Server-side language detection
-export function detectLanguageFromCountry(country?: string): Language {
-  if (!country) return 'en';
-  return countryToLanguage[country] || 'en';
-}
-
-
