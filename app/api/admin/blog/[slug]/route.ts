@@ -1,4 +1,3 @@
-// app/api/admin/blog/[slug]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/auth-options';
@@ -7,7 +6,7 @@ import { BlogService } from '@/lib/services/blog-service';
 // GET - Get single post
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -16,7 +15,8 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const post = await BlogService.getPostBySlugAdmin(params.slug);
+    const { slug } = await context.params;
+    const post = await BlogService.getPostBySlugAdmin(slug);
 
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
@@ -35,7 +35,7 @@ export async function GET(
 // PUT - Update post
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -44,8 +44,9 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { slug } = await context.params;
     const data = await request.json();
-    const post = await BlogService.updatePost(params.slug, data);
+    const post = await BlogService.updatePost(slug, data);
 
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
@@ -64,7 +65,7 @@ export async function PUT(
 // DELETE - Delete post
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -73,7 +74,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const deleted = await BlogService.deletePost(params.slug);
+    const { slug } = await context.params;
+    const deleted = await BlogService.deletePost(slug);
 
     if (!deleted) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
