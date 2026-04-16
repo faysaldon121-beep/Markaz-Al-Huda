@@ -1,5 +1,5 @@
 // lib/getPageContent.ts
-import { connectDB } from '@/lib/mongodb';
+import { connectDB } from '@/lib/db/mongodb';
 import PageContent from '@/models/PageContent';
 
 export async function getPageContent(slug: string, lang: string = 'en') {
