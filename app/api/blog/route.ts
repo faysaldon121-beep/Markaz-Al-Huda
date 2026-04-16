@@ -1,7 +1,8 @@
 // app/api/blog/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { BlogService } from '@/lib/services/blog-service';
-import { Language } from '@/lib/utils/language-detection';
+//import { Language } from '@/lib/utils/language-detection';
+import { type Language } from '@/lib/i18n/languages';
 
 export async function GET(request: NextRequest) {
   try {
