@@ -4,9 +4,11 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Language, languages } from '@/lib/utils/language-detection';
-import 'react-quill/dist/quill.snow.css';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), { 
+  ssr: false,
+  loading: () => <div className="h-96 bg-gray-100 rounded animate-pulse"></div>
+});
 
 interface BlogEditorProps {
   initialData?: any;
@@ -22,6 +24,7 @@ export default function BlogEditor({ initialData, onSave }: BlogEditorProps) {
   const [featured, setFeatured] = useState(initialData?.featured || false);
   const [coverImage, setCoverImage] = useState(initialData?.coverImage || '');
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const [translations, setTranslations] = useState<any>(
     initialData?.translations || {
@@ -33,6 +36,11 @@ export default function BlogEditor({ initialData, onSave }: BlogEditorProps) {
       ru: { title: '', description: '', content: '' },
     }
   );
+
+  // Ensure component is mounted before rendering Quill
+  useState(() => {
+    setMounted(true);
+  });
 
   const handleTranslationChange = (
     field: 'title' | 'description' | 'content',
@@ -216,13 +224,15 @@ export default function BlogEditor({ initialData, onSave }: BlogEditorProps) {
             Content ({languages[activeLanguage].name})
           </label>
           <div className="bg-white" dir={languages[activeLanguage].dir}>
-            <ReactQuill
-              theme="snow"
-              value={translations[activeLanguage]?.content || ''}
-              onChange={(value) => handleTranslationChange('content', value)}
-              modules={modules}
-              className="min-h-[400px]"
-            />
+            {mounted && (
+              <ReactQuill
+                theme="snow"
+                value={translations[activeLanguage]?.content || ''}
+                onChange={(value) => handleTranslationChange('content', value)}
+                modules={modules}
+                className="min-h-[400px]"
+              />
+            )}
           </div>
         </div>
       </div>
