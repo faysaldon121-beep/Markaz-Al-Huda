@@ -2,11 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { BlogService } from '@/lib/services/blog-service';
 import type { Language } from '@/lib/i18n/languages';
 
-interface RouteContext {
-  params: Promise<{ slug: string }>;
-}
-
-export async function GET(request: NextRequest, context: RouteContext) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
   try {
     const { slug } = await context.params;
     const searchParams = request.nextUrl.searchParams;
@@ -24,6 +23,9 @@ export async function GET(request: NextRequest, context: RouteContext) {
     return NextResponse.json(post);
   } catch (error) {
     console.error('Get post error:', error);
-    return NextResponse.json({ error: 'Failed to fetch post' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch post' },
+      { status: 500 }
+    );
   }
 }
