@@ -2,7 +2,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
-import { Language } from '@/lib/utils/language-detection';
+//import { Language } from '@/lib/utils/language-detection';
+import { type Language } from '@/lib/i18n/languages';
 
 interface BlogCardProps {
   post: any;
