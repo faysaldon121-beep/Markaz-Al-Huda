@@ -1,4 +1,3 @@
-// app/api/admin/blog/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/auth-options';
@@ -9,7 +8,7 @@ export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session || !['admin', 'editor', 'author'].includes(session.user.role)) {
+    if (!session?.user || !['admin', 'editor', 'author'].includes(session.user.role)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -34,7 +33,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session || !['admin', 'editor', 'author'].includes(session.user.role)) {
+    if (!session?.user || !['admin', 'editor', 'author'].includes(session.user.role)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -43,8 +42,8 @@ export async function POST(request: NextRequest) {
     const post = await BlogService.createPost({
       ...data,
       authorId: session.user.id,
-      authorName: session.user.name,
-      authorEmail: session.user.email,
+      authorName: session.user.name || 'Anonymous',
+      authorEmail: session.user.email || '',
     });
 
     return NextResponse.json(post, { status: 201 });
