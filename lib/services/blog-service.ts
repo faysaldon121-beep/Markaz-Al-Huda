@@ -1,7 +1,5 @@
-// lib/services/blog-service.ts
 import connectDB from '@/lib/db/mongodb';
 import BlogPost, { IBlogPost } from '@/lib/db/models/BlogPost';
-//import { Language } from '@/lib/utils/language-detection';
 import { type Language } from '@/lib/i18n/languages';
 
 export interface BlogPostInput {
@@ -23,6 +21,9 @@ export interface BlogPostInput {
   authorName: string;
   authorEmail: string;
 }
+
+// Use a simpler type for lean documents
+type LeanBlogPost = Omit<IBlogPost, keyof Document> & { _id: string };
 
 export class BlogService {
   // Create a new blog post
@@ -56,7 +57,7 @@ export class BlogService {
     await connectDB();
 
     const updateData: any = { ...data };
-    
+
     if (data.status === 'published' && !updateData.publishedAt) {
       updateData.publishedAt = new Date();
     }
@@ -95,7 +96,8 @@ export class BlogService {
         .sort({ publishedAt: -1 })
         .skip(skip)
         .limit(limit)
-        .lean(),
+        .lean<LeanBlogPost[]>()
+        .exec(),
       BlogPost.countDocuments(query),
     ]);
 
@@ -114,22 +116,29 @@ export class BlogService {
   static async getPostBySlug(
     slug: string,
     language: Language
-  ): Promise<IBlogPost | null> {
+  ): Promise<LeanBlogPost | null> {
     await connectDB();
 
     const post = await BlogPost.findOne({
       slug,
       status: 'published',
       [`translations.${language}`]: { $exists: true },
-    }).lean();
+    })
+      .lean<LeanBlogPost>()
+      .exec();
 
     return post;
   }
 
   // Get post for admin (all statuses)
-  static async getPostBySlugAdmin(slug: string): Promise<IBlogPost | null> {
+  static async getPostBySlugAdmin(slug: string): Promise<LeanBlogPost | null> {
     await connectDB();
-    return await BlogPost.findOne({ slug }).lean();
+    
+    const post = await BlogPost.findOne({ slug })
+      .lean<LeanBlogPost>()
+      .exec();
+    
+    return post;
   }
 
   // Increment view count
@@ -149,7 +158,8 @@ export class BlogService {
     })
       .sort({ publishedAt: -1 })
       .limit(limit)
-      .lean();
+      .lean<LeanBlogPost[]>()
+      .exec();
   }
 
   // Get related posts
@@ -157,10 +167,13 @@ export class BlogService {
     slug: string,
     language: Language,
     limit = 3
-  ): Promise<IBlogPost[]> {
+  ): Promise<LeanBlogPost[]> {
     await connectDB();
 
-    const currentPost = await BlogPost.findOne({ slug }).lean();
+    const currentPost = await BlogPost.findOne({ slug })
+      .lean<LeanBlogPost>()
+      .exec();
+    
     if (!currentPost) return [];
 
     return await BlogPost.find({
@@ -174,7 +187,8 @@ export class BlogService {
     })
       .sort({ publishedAt: -1 })
       .limit(limit)
-      .lean();
+      .lean<LeanBlogPost[]>()
+      .exec();
   }
 
   // Get all posts for admin
@@ -188,7 +202,8 @@ export class BlogService {
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .lean(),
+        .lean<LeanBlogPost[]>()
+        .exec(),
       BlogPost.countDocuments(),
     ]);
 
@@ -213,7 +228,7 @@ export class BlogService {
   // Get categories
   static async getCategories() {
     await connectDB();
-    
+
     return await BlogPost.distinct('category', { status: 'published' });
   }
 
@@ -249,6 +264,7 @@ export class BlogService {
     })
       .sort({ publishedAt: -1 })
       .limit(limit)
-      .lean();
+      .lean<LeanBlogPost[]>()
+      .exec();
   }
 }
