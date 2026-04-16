@@ -1,7 +1,8 @@
 import type {Metadata} from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
-
+// app/layout.tsx (add this import at the top)
+import 'react-quill/dist/quill.snow.css';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
