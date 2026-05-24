@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 // app/layout.tsx (add this import at the top)
 import 'react-quill/dist/quill.snow.css';
@@ -86,6 +87,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       </head>
       <body suppressHydrationWarning className="font-sans antialiased text-stone-900 bg-stone-50">
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
